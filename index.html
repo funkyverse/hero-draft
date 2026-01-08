@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> Hero Draft : Tactical Arena | Funkyverse </title>
+   
+    <link rel="stylesheet" href="https://funkyverse.github.io/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="setup-screen">
+    <h2 style="letter-spacing: 2px; font-weight: 900;">SELECT 5 HEROES</h2>
+    <div class="draft-pool" id="draft-pool"></div>
+    <button class="btn" id="start-btn" disabled>START BATTLE</button>
+</div>
+
+<div id="result-screen" style="display: none;">
+    <h1 id="result-text" style="font-weight: 900; letter-spacing: 2px;">YOU WIN!</h1>
+    <button class="btn" id="restart-btn">RESTART</button>
+</div>
+
+
+<div id="log-overlay">
+    <div id="log-popup">
+        <h3 style="margin: 0; color: var(--color-energy); text-align: center; text-transform: uppercase; font-size: 14px; font-weight: 900;">Battle Log</h3>
+        <div id="log-content"></div>
+        <button class="btn" onclick="$('#log-overlay').fadeOut(200)" style="margin: 0;">CLOSE</button>
+    </div>
+</div>
+
+<div id="role-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 3000; display: none; align-items: center; justify-content: center;">
+    <div id="log-popup">
+        <h3 style="margin: 0; color: var(--color-energy); text-align: center; text-transform: uppercase; font-size: 14px; font-weight: 900;">Hero Roles</h3>
+        <div id="log-content">
+            <div class="log-entry">
+                <b>WARRIOR:</b> Damage +15% vs Mage. 
+                <br><small><i>Takes +15% Damage from Ranger.</i></small>
+            </div>
+            <div class="log-entry">
+                <b>MAGE:</b> Damage +15% vs Ranger. 
+                <br><small><i>Takes +15% Damage from Warrior.</i></small>
+            </div>
+            <div class="log-entry">
+                <b>RANGER:</b> Damage +15% vs Warrior. 
+                <br><small><i>Takes +15% Damage from Mage.</i></small>
+            </div>
+            <div class="log-entry">
+                <b>SUPPORT:</b> Reduces 15% damage taken from other roles (Warr, Mage, Rang).
+            </div>
+        </div>
+        <button class="btn" onclick="$('#role-overlay').fadeOut(200)" style="margin: 0;">CLOSE</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card-row" id="opponent-side"></div>
+    <div class="divider" id="turn-indicator">BATTLE ARENA</div>
+    <div class="card-row row-player" id="player-side"></div>
+    
+    <div class="action-buttons">
+        <button class="btn btn-action" id="view-log-btn" onclick="$('#log-overlay').css('display','flex').hide().fadeIn(200)">
+            BATTLE LOG
+        </button>
+        <button class="btn btn-action" onclick="$('#role-overlay').css('display','flex').hide().fadeIn(200)">
+            <i class="fas fa-info-circle"></i> INFO
+        </button>
+    </div>
+</div>
+
+    <script src="heroes.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
